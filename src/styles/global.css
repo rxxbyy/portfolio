@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Special+Gothic+Expanded+One&display=swap');
+@import "tailwindcss";
+
+body {
+    background-color: black;
+    font-family: 'Special Gothic Expanded One'
+}
+
+.font-main {
+    font-family: 'Special Gothic Expanded One'
+}
+
+::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+}
+
+/* For Firefox */
+html {
+    scrollbar-width: none;
+}
+
+/* For IE and Edge */
+body {
+    -ms-overflow-style: none;
+}

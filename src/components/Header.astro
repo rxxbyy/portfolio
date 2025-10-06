@@ -1,0 +1,49 @@
+---
+import { fade } from "astro:transitions";
+
+---
+<header class="flex justify-center items-center h-15 w-full text-center text-xl pl-5 pr-5 md:text-2xl tracking-wider">
+    <nav class="flex flex-row justify-between items-center text-white font-bold w-full md:w-1/2">
+        <a href='/about' 
+           class="animate-fade-in-1" 
+           transition:animate={fade({ duration: "0.4s" })}>
+           ABOUT
+        </a>
+        <a href='/work' 
+           class="animate-fade-in-2" 
+           transition:animate={fade({ duration: "0.6s" })}>
+           WORK
+        </a>
+        <a href='/contact' 
+           class="animate-fade-in-3" 
+           transition:animate={fade({ duration: "0.8s" })}>
+           CONTACT
+        </a>
+    </nav>
+</header>
+
+<style>
+    .animate-fade-in-1 {
+        opacity: 0;
+        animation: fadeInUp 0.6s ease-out 0.2s forwards;
+    }
+    
+    .animate-fade-in-2 {
+        opacity: 0;
+        animation: fadeInUp 0.6s ease-out 0.4s forwards;
+    }
+    
+    .animate-fade-in-3 {
+        opacity: 0;
+        animation: fadeInUp 0.6s ease-out 0.6s forwards;
+    }
+    
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+</style>

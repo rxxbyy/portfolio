@@ -1,7 +1,7 @@
 import { Canvas } from '@react-three/fiber';
-import IndexText from './IndexText';
+import TuxModel from './TuxModel';
 
-export default function IndexTextModel() {
+export default function TuxExperience() {
     return (
         <Canvas camera={{
             position: [0, 0, 5],
@@ -10,7 +10,7 @@ export default function IndexTextModel() {
             far: 1000,
             zoom: 3,
         }}>
-            <IndexText />
+            <TuxModel />
         </Canvas>
     )
 }

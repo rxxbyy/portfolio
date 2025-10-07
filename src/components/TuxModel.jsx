@@ -42,14 +42,17 @@ function Model() {
 
     return (
         <Center>
-            <group>
-                <primitive position={[2, 0, 0]} ref={modelRef} object={scene} visible={true} />
+            <group
+                rotation={[Math.PI / 8, -Math.PI / 12, 0]}
+                position={[0, -1, 0]}
+            >
+                <primitive ref={modelRef} object={scene} visible={true} />
             </group>
         </Center>
     );
 }
 
-export default function IndexText() {
+export default function TuxModel() {
     return (
         <>
             {/* Disable OrbitControls if you want manual camera movement */}

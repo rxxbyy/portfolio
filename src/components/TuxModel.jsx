@@ -22,8 +22,6 @@ function Model() {
         const handleMouseMove = (e) => {
             cursor.current.x = e.clientX / window.innerWidth - 0.5;
             cursor.current.y = e.clientY / window.innerHeight - 0.5;
-
-            
         };
 
         window.addEventListener('mousemove', handleMouseMove);
@@ -33,8 +31,34 @@ function Model() {
         };
     }, []);
 
+    const handleModelClick = () => {
+        const model = modelRef.current;
+        if (!model) return;
+
+        model.position.set(0, 0, 0);
+        model.rotation.set(0, 0, 0);
+
+        let startTime = null;
+        const animationDuration = 500;
+        
+        const animate = (timestamp) => {
+            if (!startTime) startTime = timestamp;
+            const elapsed = timestamp - startTime;
+            const progress = Math.min(elapsed / animationDuration, 1);
+            
+            model.position.y = Math.sin(progress * Math.PI);
+            
+            if (progress < 1) {
+                requestAnimationFrame(animate);
+            } else {
+                model.position.y = 0;
+            }
+        };
+        
+        requestAnimationFrame(animate);
+    };
+
     useFrame((state) => {
-        // Camera parallax effect
         const parallaxX = cursor.current.x * 0.1;
         const parallaxY = -cursor.current.y * 0.1;
         state.camera.lookAt(parallaxX, parallaxY, 0);
@@ -45,6 +69,9 @@ function Model() {
             <group
                 rotation={[Math.PI / 8, -Math.PI / 12, 0]}
                 position={[0, -1, 0]}
+                onClick={handleModelClick} // Add onClick handler here
+                onPointerOver={() => document.body.style.cursor = 'pointer'} // Optional: change cursor on hover
+                onPointerOut={() => document.body.style.cursor = 'default'} // Optional: reset cursor
             >
                 <primitive ref={modelRef} object={scene} visible={true} />
             </group>
@@ -60,11 +87,8 @@ export default function TuxModel() {
                 enableZoom={false}
                 enableDamping={true}
             /> */}
-            {/* Reduced shadow samples for better performance */}
             <SoftShadows size={15} focus={1.5} samples={4} />
-            {/* Consider using a lighter environment preset */}
             <Environment preset="sunset" />
-            
             <Model />
         </>
     );

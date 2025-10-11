@@ -49,44 +49,64 @@ const components = rendered.map((r) => r.Content).reverse();
 
         window.addEventListener('scroll', () => {
             const preventiveScroll = document.documentElement.scrollTop || document.body.scrollTop;
-            if (preventiveScroll < expSection.scrollHeight) {
-                return;
-            }
+            if (preventiveScroll > expSection.scrollHeight) {
+                const experiences = Array.from(document.querySelectorAll('article.exp'));
+                const markers = experiences.map((node) => node.querySelector('.exp-marker'));
+                let cumulative = 0;
+                const heights = experiences.map((node) => {
+                const start = cumulative;
+                cumulative += node.offsetHeight;
+                return { start, end: start + node.offsetHeight };
+                });
 
-            const experiences = Array.from(document.querySelectorAll('article.exp'));
-            const markers = experiences.map((node) => node.querySelector('.exp-marker'));
-            let cumulative = 0;
-            const heights = experiences.map((node) => {
-            const start = cumulative;
-            cumulative += node.offsetHeight;
-            return { start, end: start + node.offsetHeight };
-            });
+                const currentScroll = document.documentElement.scrollTop || document.body.scrollTop;
+                const progressHeight = Math.min(expProgress.offsetHeight, currentScroll - expSection.scrollHeight);
 
-            const currentScroll = document.documentElement.scrollTop || document.body.scrollTop;
-            const progressHeight = Math.min(expProgress.offsetHeight, currentScroll - expSection.scrollHeight);
+                expProgressEffect.style.height = `${progressHeight}px`;
+                expProgressEffect.style.transition = '50ms all ease-in-out';
+                expProgressEffect.style.animationDelay = '2s';
 
-            expProgressEffect.style.height = `${progressHeight}px`;
-            expProgressEffect.style.transition = '50ms all ease-in-out';
-            expProgressEffect.style.animationDelay = '2s';
+                markers.forEach((marker) => {
+                    if (!marker) return;
+                    marker.classList.remove('exp-marker-active', 'exp-gradient');
+                    marker.style.transform = '';
+                });
 
-            markers.forEach((marker) => {
-                if (!marker) return;
-                marker.classList.remove('exp-marker-active', 'exp-gradient');
-                marker.style.transform = '';
-            });
+                const activeIndex = heights.findIndex(({ start, end }) => progressHeight >= start && progressHeight < end);
+                if (activeIndex !== -1 && markers[activeIndex]) {
+                    const marker = markers[activeIndex];
+                    marker.classList.add('exp-marker-active', 'exp-gradient');
 
-            const activeIndex = heights.findIndex(({ start, end }) => progressHeight >= start && progressHeight < end);
-            if (activeIndex !== -1 && markers[activeIndex]) {
-                const marker = markers[activeIndex];
-                marker.classList.add('exp-marker-active', 'exp-gradient');
+                    // Center the marker over the progress bar
+                    const barRect = expProgress.getBoundingClientRect();
+                    const barCenterX = barRect.left + barRect.width / 2;
+                    const markerRect = marker.getBoundingClientRect();
+                    const markerCenterX = markerRect.left + markerRect.width / 2;
+                    const deltaX = barCenterX - markerCenterX;
+                    marker.style.transform = `translateX(${deltaX}px)`;
+                }
+            } else {
+                const experiences = Array.from(document.querySelectorAll('article.exp'));
+                const markers = experiences.map((node) => node.querySelector('.exp-marker'));
+                let cumulative = 0;
+                const heights = experiences.map((node) => {
+                const start = cumulative;
+                cumulative += node.offsetHeight;
+                return { start, end: start + node.offsetHeight };
+                });
 
-                // Center the marker over the progress bar
-                const barRect = expProgress.getBoundingClientRect();
-                const barCenterX = barRect.left + barRect.width / 2;
-                const markerRect = marker.getBoundingClientRect();
-                const markerCenterX = markerRect.left + markerRect.width / 2;
-                const deltaX = barCenterX - markerCenterX;
-                marker.style.transform = `translateX(${deltaX}px)`;
+                const currentScroll = document.documentElement.scrollTop || document.body.scrollTop;
+                const progressHeight = Math.min(expProgress.offsetHeight, currentScroll - expSection.scrollHeight);
+
+                expProgressEffect.style.height = `${progressHeight}px`;
+                expProgressEffect.style.transition = '50ms all ease-in-out';
+                expProgressEffect.style.animationDelay = '2s';
+
+                markers.forEach((marker) => {
+                    if (!marker) return;
+                    marker.classList.remove('exp-marker-active', 'exp-gradient');
+                    marker.style.transform = '';
+                });
             }
         });
     });

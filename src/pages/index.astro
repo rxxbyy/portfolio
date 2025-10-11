@@ -11,9 +11,9 @@ import Experience from '../components/Experience.astro';
     <main class="bg-black">
         <Header />
 
-        <section class="flex flex-row justify-center items-center text-white text-xl md:text-2xl text-center m-auto w-11/12 md:w-3/4 appear"
+        <section class="flex flex-row justify-center items-center text-white text-xl md:text-2xl text-center m-auto w-11/12 md:w-3/4"
              style="background: radial-gradient(circle at center, rgba(49, 49, 49, 0.4), rgba(17, 24, 39, 0) 65%);">
-            <section class="w-full text-left mb-10 appear delay-200">
+            <section class="w-full text-left mb-10">
                 <h1 id="my-name" class="font-bold inline-block gradient">I'm Manuel Rubio</h1> <br />
                 <span class="text-md md:text-xl">Computer Scientist and Software Engineer</span>
 
@@ -23,7 +23,7 @@ import Experience from '../components/Experience.astro';
                 </footer>
             </section>
             <div id="main-text-model" class="mr-0 ml-auto h-[600px] w-[220px] md:h-[600px] md:w-[300px]">
-            <TuxExperience client:load />
+                <TuxExperience client:load />
             </div>
         </section>
 

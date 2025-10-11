@@ -2,10 +2,11 @@
 import { fade } from "astro:transitions";
 
 ---
-<header class="flex justify-center items-center h-15 w-full text-center text-lg pl-5 pr-5 md:text-2xl tracking-wider">
-    <nav class="flex flex-row justify-between items-center text-white font-bold w-full md:w-1/2">
-        <a href='#'
+<header class="flex justify-center items-center h-15 w-full text-center text-lg md:text-2xl tracking-wider">
+    <nav class="flex flex-row justify-evenly items-center text-white font-bold w-full">
+        <a href='#exp-section'
            class="animate-fade-in-1" 
+           style="transition: all 500ms ease"
            transition:animate={fade({ duration: "0.4s" })}>
            WORK
         </a>
@@ -47,3 +48,20 @@ import { fade } from "astro:transitions";
         }
     }
 </style>
+
+<script is:inline>
+    window.addEventListener('DOMContentLoaded', () =>{
+        document.addEventListener('astro:page-load', () => {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        
+        });
+    });
+</script>

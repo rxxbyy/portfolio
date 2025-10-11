@@ -19,18 +19,18 @@ const components = rendered.map((r) => r.Content).reverse();
                 const Component = components[index];
                 return (
                 <article class="flex flex-col exp gap-y-5">
-                    <header class="flex flex-col text-left text-2xl rounded-lg">
+                    <header class="flex flex-col text-left md:text-2xl rounded-lg">
                         <div class="flex flex-row justify-left items-center">
-                            <div class="-ml-2 exp-marker h-[4px] w-[12px] bg-white rounded-r-full" style="background-color: var(--exp-gradient);"></div>
-                            <span class="ml-4">{entry.data.position}</span>
+                            <div class="-ml-2 exp-marker h-[20px] w-[20px] bg-white rounded-r-full" style="background-color: var(--exp-gradient);"></div>
+                            <span class="text-md w-full">{entry.data.position}</span>
                         </div>
-                        <small class="flex flex-row justify-between items-start text-md">
-                            {entry.data.company}
+                        <small class="flex flex-row justify-between items-start text-sm md:text-md">
+                            <span class="ml-3">{entry.data.company}</span>
                             <span>{entry.data.start} — {entry.data.end}</span>
                         </small>
                     </header>
-                    <main class="text-sm">
-                        {Component && <Component />}
+                    <main class="text-xs ml-4 gap-y-4">
+                            {Component && <Component />}
                     </main>
                 </article>
                 );
@@ -49,7 +49,7 @@ const components = rendered.map((r) => r.Content).reverse();
 
         window.addEventListener('scroll', () => {
             const preventiveScroll = document.documentElement.scrollTop || document.body.scrollTop;
-            if (preventiveScroll > expSection.scrollHeight) {
+            if (preventiveScroll > expSection.scrollHeight || window.innerWidth < 600) {
                 const experiences = Array.from(document.querySelectorAll('article.exp'));
                 const markers = experiences.map((node) => node.querySelector('.exp-marker'));
                 let cumulative = 0;
@@ -60,8 +60,11 @@ const components = rendered.map((r) => r.Content).reverse();
                 });
 
                 const currentScroll = document.documentElement.scrollTop || document.body.scrollTop;
-                const progressHeight = Math.min(expProgress.offsetHeight, currentScroll - expSection.scrollHeight);
+                let progressHeight = Math.min(expProgress.offsetHeight, currentScroll - expSection.scrollHeight);
 
+                if (window.innerWidth < 600) {
+                    progressHeight += window.innerHeight / 2;
+                }
                 expProgressEffect.style.height = `${progressHeight}px`;
                 expProgressEffect.style.transition = '50ms all ease-in-out';
                 expProgressEffect.style.animationDelay = '2s';
@@ -88,19 +91,15 @@ const components = rendered.map((r) => r.Content).reverse();
             } else {
                 const experiences = Array.from(document.querySelectorAll('article.exp'));
                 const markers = experiences.map((node) => node.querySelector('.exp-marker'));
-                let cumulative = 0;
-                const heights = experiences.map((node) => {
-                const start = cumulative;
-                cumulative += node.offsetHeight;
-                return { start, end: start + node.offsetHeight };
-                });
 
                 const currentScroll = document.documentElement.scrollTop || document.body.scrollTop;
                 const progressHeight = Math.min(expProgress.offsetHeight, currentScroll - expSection.scrollHeight);
 
+                if (window.innerWidth < 600) {
+                    progressHeight += window.innerHeight / 2;
+                }
+
                 expProgressEffect.style.height = `${progressHeight}px`;
-                expProgressEffect.style.transition = '50ms all ease-in-out';
-                expProgressEffect.style.animationDelay = '2s';
 
                 markers.forEach((marker) => {
                     if (!marker) return;
@@ -130,21 +129,19 @@ const components = rendered.map((r) => r.Content).reverse();
 
     /* Active marker state that morphs visually with the progress bar */
     .exp-marker-active {
-        width: 18px;
-        height: 16px;
+        width: 20px;
+        height: 20px;
         border-radius: 100%;
         z-index: 10000;
         /* Run gradient animation + quick appear once */
-        animation: var(--exp-anim), appear 50ms ease-in-out;
+        animation: var(--exp-anim), appear 500ms ease-in-out;
     }
 
     @keyframes appear {
         from {
             opacity: 0%;
-            width: 0px;
         } to {
             opacity: 100%;
-            width: 18px;
         }
     }
 </style>

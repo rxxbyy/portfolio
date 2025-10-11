@@ -1,0 +1,130 @@
+---
+import { getCollection, render } from 'astro:content';
+
+const entries = await getCollection('experience');
+const rendered = await Promise.all(entries.map((entry) => render(entry)));
+const components = rendered.map((r) => r.Content).reverse();
+---
+<section id="exp-section">
+    <header class="flex items-center justify-start text-3xl text-white p-10">
+        <h2>Experience</h2>
+    </header>
+    <section class="w-11/12 text-white z-20 flex flex-row justify-center items-center gap-x-2">
+        <div id="exp-progress" class="self-stretch w-[8px] rounded-3xl bg-white/80">
+            <div id="exp-effect" class="top-0 left-0 w-full rounded-3xl z-50 relative exp-gradient exp-anim"></div>
+        </div>
+        
+        <div class="w-11/12 flex flex-col gap-y-5">
+            {entries.reverse().map((entry, index) => {
+                const Component = components[index];
+                return (
+                <article class="flex flex-col exp gap-y-5">
+                    <header class="flex flex-col text-left text-2xl rounded-lg">
+                        <div class="flex flex-row justify-left items-center">
+                            <div class="-ml-2 exp-marker h-[4px] w-[12px] bg-white rounded-r-full" style="background-color: var(--exp-gradient);"></div>
+                            <span class="ml-4">{entry.data.position}</span>
+                        </div>
+                        <small class="flex flex-row justify-between items-start text-md">
+                            {entry.data.company}
+                            <span>{entry.data.start} — {entry.data.end}</span>
+                        </small>
+                    </header>
+                    <main class="text-sm">
+                        {Component && <Component />}
+                    </main>
+                </article>
+                );
+            })}
+        </div>
+    </section>
+</section>
+
+
+<script is:inline>
+    document.addEventListener('astro:page-load', () => {
+        const expSection = document.getElementById('exp-section');
+        const expProgress = document.getElementById('exp-progress');
+        const expProgressEffect = document.getElementById('exp-effect');
+        console.log(expProgress.scrollHeight + expProgress.offsetHeight);
+
+        window.addEventListener('scroll', () => {
+            const preventiveScroll = document.documentElement.scrollTop || document.body.scrollTop;
+            if (preventiveScroll < expSection.scrollHeight) {
+                return;
+            }
+
+            const experiences = Array.from(document.querySelectorAll('article.exp'));
+            const markers = experiences.map((node) => node.querySelector('.exp-marker'));
+            let cumulative = 0;
+            const heights = experiences.map((node) => {
+            const start = cumulative;
+            cumulative += node.offsetHeight;
+            return { start, end: start + node.offsetHeight };
+            });
+
+            const currentScroll = document.documentElement.scrollTop || document.body.scrollTop;
+            const progressHeight = Math.min(expProgress.offsetHeight, currentScroll - expSection.scrollHeight);
+
+            expProgressEffect.style.height = `${progressHeight}px`;
+            expProgressEffect.style.transition = '50ms all ease-in-out';
+            expProgressEffect.style.animationDelay = '2s';
+
+            markers.forEach((marker) => {
+                if (!marker) return;
+                marker.classList.remove('exp-marker-active', 'exp-gradient');
+                marker.style.transform = '';
+            });
+
+            const activeIndex = heights.findIndex(({ start, end }) => progressHeight >= start && progressHeight < end);
+            if (activeIndex !== -1 && markers[activeIndex]) {
+                const marker = markers[activeIndex];
+                marker.classList.add('exp-marker-active', 'exp-gradient');
+
+                // Center the marker over the progress bar
+                const barRect = expProgress.getBoundingClientRect();
+                const barCenterX = barRect.left + barRect.width / 2;
+                const markerRect = marker.getBoundingClientRect();
+                const markerCenterX = markerRect.left + markerRect.width / 2;
+                const deltaX = barCenterX - markerCenterX;
+                marker.style.transform = `translateX(${deltaX}px)`;
+            }
+        });
+    });
+</script>
+
+ <style is:inline>
+    :root {
+        /* Shared gradient + animation settings */
+        --exp-gradient: linear-gradient(180deg, #3b82f6 0%, #2563eb 50%, #93c5fd 100%);
+        --exp-anim: expGradientMove 4s ease-in-out infinite;
+    }
+
+    /* Apply the exact same gradient to any element */
+    .exp-gradient {
+        background: var(--exp-gradient);
+        background-size: 200% 200%;
+    }
+
+    /* Apply the shared gradient animation */
+    .exp-anim { animation: var(--exp-anim); }
+
+    /* Active marker state that morphs visually with the progress bar */
+    .exp-marker-active {
+        width: 18px;
+        height: 16px;
+        border-radius: 100%;
+        z-index: 10000;
+        /* Run gradient animation + quick appear once */
+        animation: var(--exp-anim), appear 50ms ease-in-out;
+    }
+
+    @keyframes appear {
+        from {
+            opacity: 0%;
+            width: 0px;
+        } to {
+            opacity: 100%;
+            width: 18px;
+        }
+    }
+</style>

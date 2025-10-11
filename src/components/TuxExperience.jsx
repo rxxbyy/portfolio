@@ -1,7 +1,13 @@
 import { Canvas } from '@react-three/fiber';
+import { Suspense } from 'react';
 import TuxModel from './TuxModel';
 
 export default function TuxExperience() {
+    const Fallback = () => (
+        <mesh>
+        </mesh>
+    );
+
     return (
         <Canvas camera={{
             position: [0, 0, 5],
@@ -10,7 +16,9 @@ export default function TuxExperience() {
             far: 1000,
             zoom: 3,
         }}>
-            <TuxModel />
+            <Suspense fallback={<Fallback />}>
+                <TuxModel />
+            </Suspense>
         </Canvas>
     )
 }

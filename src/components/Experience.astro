@@ -67,7 +67,7 @@ const rendered = await Promise.all(collection.map((entry) => render(entry)));
                 const currentScroll = document.documentElement.scrollTop || document.body.scrollTop;
                 let progressHeight = Math.min(expProgress.offsetHeight, currentScroll - expSection.scrollHeight);
 
-                if (window.innerWidth < 600) {
+                if (window.innerWidth < 850) {
                     progressHeight += window.innerHeight / 2;
                 }
 
@@ -101,7 +101,7 @@ const rendered = await Promise.all(collection.map((entry) => render(entry)));
                 const currentScroll = document.documentElement.scrollTop || document.body.scrollTop;
                 const progressHeight = Math.min(expProgress.offsetHeight, currentScroll - expSection.scrollHeight);
 
-                if (window.innerWidth < 600) {
+                if (window.innerWidth < 850) {
                     progressHeight += window.innerHeight / 2;
                 }
 

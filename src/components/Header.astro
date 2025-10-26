@@ -1,22 +1,23 @@
 ---
 import { fade } from "astro:transitions";
-
 ---
-<header class="flex justify-center items-center h-15 w-full text-center text-lg md:text-2xl tracking-wider">
-    <nav class="flex flex-row justify-evenly items-center text-white font-bold w-full">
+<header class="font-main flex justify-center items-center h-30 w-full text-center text-lg md:text-2xl tracking-wider">
+    <nav class="flex md:w-3/4 flex-row justify-around items-center text-white font-bold w-full">
         <a href='#exp-section'
-           class="animate-fade-in-1" 
+           class="header-btn rounded-xl"
            style="transition: all 500ms ease"
            transition:animate={fade({ duration: "0.4s" })}>
            WORK
         </a>
         <a href='#' 
-           class="animate-fade-in-2" 
+           class="header-btn rounded-xl" 
+           style="transition: all 500ms ease"
            transition:animate={fade({ duration: "0.6s" })}>
            ABOUT
         </a>
         <a href='#' 
-           class="animate-fade-in-3" 
+           class="header-btn rounded-xl" 
+           style="transition: all 500ms ease"
            transition:animate={fade({ duration: "0.8s" })}>
            CONTACT
         </a>
@@ -24,44 +25,40 @@ import { fade } from "astro:transitions";
 </header>
 
 <style>
-    .animate-fade-in-1 {
-        opacity: 0;
-        animation: fadeInUp 0.6s ease-out 0.2s forwards;
+    .header-btn:hover {
+        background: linear-gradient(90deg, rgba(0, 0, 255, 1), rgba(51, 51, 255, 1), rgba(102, 102, 255, 1), rgba(153, 153, 255, 1), rgba(204, 204, 255, 1), rgba(153, 153, 255, 1), rgba(102, 102, 255, 1), rgba(51, 51, 255, 1), rgba(0, 0, 255, 1));
+        background-size: 200% 100%;
+        backdrop-filter: blur(5px);
+        -webkit-text-fill-color: transparent;
+        -webkit-background-clip: text;
+        padding: 10px;
+        scale: 1.1;
+
+        animation: header-animation 2s infinite ease;
     }
-    
-    .animate-fade-in-2 {
-        opacity: 0;
-        animation: fadeInUp 0.6s ease-out 0.4s forwards;
-    }
-    
-    .animate-fade-in-3 {
-        opacity: 0;
-        animation: fadeInUp 0.6s ease-out 0.6s forwards;
-    }
-    
-    @keyframes fadeInUp {
-        from {
-            opacity: 0;
+
+    @keyframes header-animation {
+        0% {
+            background-position: 0% 50%;
         }
-        to {
-            opacity: 1;
-        }
+        100% {
+            background-position: 200% 50%;
     }
+}
 </style>
 
 <script is:inline>
     window.addEventListener('DOMContentLoaded', () =>{
         document.addEventListener('astro:page-load', () => {
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                        behavior: 'smooth'
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                            behavior: 'smooth'
+                        });
                     });
-                });
             });
-        
         });
     });
 </script>

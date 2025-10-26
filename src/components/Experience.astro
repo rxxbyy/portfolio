@@ -1,12 +1,16 @@
 ---
 import { getCollection, render } from 'astro:content';
 
-const entries = await getCollection('experience');
-const rendered = await Promise.all(entries.map((entry) => render(entry)));
-const components = rendered.map((r) => r.Content).reverse();
+const collection = await getCollection('experience');
+
+collection.sort((a, b) => {
+    return Number(b.data.id) - Number(a.data.id);
+})
+
+const rendered = await Promise.all(collection.map((entry) => render(entry)));
 ---
 <section id="exp-section">
-    <header class="flex items-center justify-start text-3xl text-white p-10">
+    <header class="flex items-center justify-start text-3xl font-extrabold tracking-wider -ml-2 text-white p-10">
         <h2>Experience</h2>
     </header>
     <section class="w-11/12 text-white z-20 flex flex-row justify-center items-center gap-x-2">
@@ -15,22 +19,23 @@ const components = rendered.map((r) => r.Content).reverse();
         </div>
         
         <div class="w-11/12 flex flex-col gap-y-5">
-            {entries.reverse().map((entry, index) => {
-                const Component = components[index];
+            {rendered.map((entry) => {
+                const Component = entry.Content;
+                const data = entry.remarkPluginFrontmatter;
                 return (
                 <article class="flex flex-col exp gap-y-5">
                     <header class="flex flex-col text-left md:text-2xl rounded-lg">
                         <div class="flex flex-row justify-left items-center">
                             <div class="-ml-2 exp-marker h-[20px] w-[20px] bg-white rounded-r-full" style="background-color: var(--exp-gradient);"></div>
-                            <span class="text-md w-full">{entry.data.position}</span>
+                            <span class="text-xl md:text-2xl w-full font-cnt font-bold">{data.position}</span>
                         </div>
-                        <small class="flex flex-row justify-between items-start text-sm md:text-md">
-                            <span class="ml-3">{entry.data.company}</span>
-                            <span>{entry.data.start} — {entry.data.end}</span>
+                        <small class="flex flex-row justify-between items-start text-sm md:text-md font-cnt">
+                            <span class="ml-3 text-md font-semibold">{data.company}</span>
+                            <span>{data.start} — {data.end}</span>
                         </small>
                     </header>
-                    <main class="text-xs ml-4 gap-y-4">
-                            {Component && <Component />}
+                    <main class="text-md list-disc ml-4 gap-y-4 font-normal font-cnt">
+                        {Component && <Component />}
                     </main>
                 </article>
                 );
@@ -65,6 +70,7 @@ const components = rendered.map((r) => r.Content).reverse();
                 if (window.innerWidth < 600) {
                     progressHeight += window.innerHeight / 2;
                 }
+
                 expProgressEffect.style.height = `${progressHeight}px`;
                 expProgressEffect.style.transition = '50ms all ease-in-out';
                 expProgressEffect.style.animationDelay = '2s';
@@ -134,7 +140,7 @@ const components = rendered.map((r) => r.Content).reverse();
         border-radius: 100%;
         z-index: 10000;
         /* Run gradient animation + quick appear once */
-        animation: var(--exp-anim), appear 500ms ease-in-out;
+        animation: var(--exp-anim), appear 50ms ease-in-out;
     }
 
     @keyframes appear {

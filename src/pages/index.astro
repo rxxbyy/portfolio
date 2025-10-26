@@ -1,11 +1,11 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import TuxExperience from '../components/TuxExperience';
-import { fade } from 'astro:transitions';
 
 /* Components */
 import Header from '../components/Header.astro';
 import Experience from '../components/Experience.astro';
+import Footer from '../components/Footer.astro';
 ---
 <BaseLayout>
     <main class="bg-black">
@@ -15,11 +15,11 @@ import Experience from '../components/Experience.astro';
              style="background: radial-gradient(circle at center, rgba(49, 49, 49, 0.4), rgba(17, 24, 39, 0) 65%);">
             <section class="z-30 ml-20 mt-20 block md:items-center w-full text-left mb-20">
                 <h1 id="my-name" class="font-bold inline-block gradient">I'm Manuel Rubio</h1> <br />
-                <span class="text-md md:text-xl">Computer Scientist and Software Engineer</span>
+                <span class="text-md md:text-xl font-cnt font-bold tracking-wide">Software Engineer <span>&&</span> Computer Scientist</span>
 
-                <footer class="text-sm md:text-xl mt-7 flex flex-row">
+                <footer class="text-sm md:text-xl mt-7 flex flex-row font-cnt font-semibold">
                     <legend class="relative text-sm align-super">Based on</legend>
-                    <span class="text-gray-200 text-lg mt-3 absolute">México</span>
+                    <span class="text-gray-200 text-lg mt-[12.5px] absolute">México</span>
                 </footer>
             </section>
             
@@ -29,11 +29,7 @@ import Experience from '../components/Experience.astro';
         </section>
 
         <Experience class="appear" />
-
-        <footer class="text-white w-full p-10 text-center">
-            &copy; Some rights reserved
-        </footer>
-
+        <Footer />
     </main>
 </BaseLayout>
 
@@ -49,37 +45,4 @@ import Experience from '../components/Experience.astro';
 </script>
 
 <style>
-    .gradient {
-        background: linear-gradient(90deg, #0000ff, #3333ff, #6666ff, #9999ff, #ccccff, #9999ff, #6666ff, #3333ff, #0000ff);
-        background-size: 200% 100%;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        color: transparent;
-        animation: gradient-animation 3s linear infinite;
-        transition: all 0.3s ease;
-        z-index: -2;
-    }
-
-    @keyframes gradient-animation {
-        0% {
-            background-position: 0% 50%;
-        }
-        100% {
-            background-position: 200% 50%;
-        }
-    }
-
-    .appear {
-        animation: appear ease-in-out 1s;
-    }
-
-    @keyframes appear {
-        from {
-            opacity: 0%;
-        }
-        to {
-            opacity: 100%;
-        }
-    }
 </style>

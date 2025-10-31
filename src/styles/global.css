@@ -2,17 +2,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400..700;1,400..700&display=swap');
 @import "tailwindcss";
 
-body {
-    background-color: black;
-    font-family: 'Special Gothic Expanded One'
+@theme {
+    --color-black-1: #141414;
+    --color-yellow-1: #ECB755;
+    --color-white-1: #E7E7E7;
 }
 
-.font-main {
-    font-family: 'Special Gothic Expanded One'
+.font-sarabun {
+    font-family: 'Sarabun';
 }
 
-.font-cnt {
-    font-family: 'Arimo'
+.font-rubik-one {
+    font-family: 'Rubik One'
 }
 
 ::-webkit-scrollbar {
@@ -20,46 +21,129 @@ body {
     height: 0;
 }
 
-/* For Firefox */
 html {
     scrollbar-width: none;
 }
 
-/* For IE and Edge */
 body {
     -ms-overflow-style: none;
 }
 
-.gradient {
-    background: linear-gradient(90deg, #0000ff, #3333ff, #6666ff, #9999ff, #ccccff, #9999ff, #6666ff, #3333ff, #0000ff);
-    background-size: 200% 100%;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    color: transparent;
-    animation: gradient-animation 3s linear infinite;
-    transition: all 0.3s ease;
-    z-index: -2;
+@font-face {
+    font-family: 'Sarabun';
+    src: url('/fonts/sarabun-latin-100-italic.ttf') format('truetype');
+    font-weight: 100;
+    font-style: italic;
 }
 
-@keyframes gradient-animation {
-    0% {
-        background-position: 0% 50%;
-    }
-    100% {
-        background-position: 200% 50%;
-    }
+@font-face {
+    font-family: 'Sarabun';
+    src: url('/fonts/sarabun-latin-400-italic.ttf') format('truetype');
+    font-weight: 400;
+    font-style: italic;
 }
 
-.appear {
-    animation: appear ease-in-out 1s;
+@font-face {
+    font-family: 'Sarabun';
+    src: url('/fonts/sarabun-latin-700-italic.ttf') format('truetype');
+    font-weight: 700;
+    font-style: italic;
 }
 
-@keyframes appear {
-    from {
-        opacity: 0%;
-    }
-    to {
-        opacity: 100%;
-    }
+@font-face {
+    font-family: 'Sarabun';
+    src: url('/fonts/sarabun-latin-100-normal.ttf') format('truetype');
+    font-weight: 100;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Sarabun';
+    src: url('/fonts/sarabun-latin-400-normal.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Sarabun';
+    src: url('/fonts/sarabun-latin-700-normal.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Sarabun';
+    src: url('/fonts/sarabun-latin-200-italic.ttf') format('truetype');
+    font-weight: 200;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Sarabun';
+    src: url('/fonts/sarabun-latin-500-italic.ttf') format('truetype');
+    font-weight: 500;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Sarabun';
+    src: url('/fonts/sarabun-latin-800-italic.ttf') format('truetype');
+    font-weight: 800;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Sarabun';
+    src: url('/fonts/sarabun-latin-200-normal.ttf') format('truetype');
+    font-weight: 200;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Sarabun';
+    src: url('/fonts/sarabun-latin-500-normal.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Sarabun';
+    src: url('/fonts/sarabun-latin-800-normal.ttf') format('truetype');
+    font-weight: 800;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Sarabun';
+    src: url('/fonts/sarabun-latin-300-italic.ttf') format('truetype');
+    font-weight: 300;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Sarabun';
+    src: url('/fonts/sarabun-latin-600-italic.ttf') format('truetype');
+    font-weight: 600;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Sarabun';
+    src: url('/fonts/sarabun-latin-300-normal.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Sarabun';
+    src: url('/fonts/sarabun-latin-600-normal.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Rubik One';
+    src: url('/fonts/RubikOne-Regular.woff') format('woff');
+    font-weight: 600;
+    font-style: normal;
 }

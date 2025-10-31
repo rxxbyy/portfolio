@@ -20,6 +20,7 @@
     "animejs": "^4.2.0",
     "astro": "^5.15.1",
     "astro-icon": "^1.1.5",
+    "gsap": "^3.13.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "tailwindcss": "^4.1.13",

@@ -1,64 +1,9 @@
 ---
-import { fade } from "astro:transitions";
 ---
-<header class="font-main flex justify-center items-center h-30 w-full text-center text-lg md:text-2xl tracking-wider">
-    <nav class="flex md:w-3/4 flex-row justify-around items-center text-white font-bold w-full">
-        <a href='#exp-section'
-           class="header-btn rounded-xl"
-           style="transition: all 500ms ease"
-           transition:animate={fade({ duration: "0.4s" })}>
-           WORK
-        </a>
-        <a href='#' 
-           class="header-btn rounded-xl" 
-           style="transition: all 500ms ease"
-           transition:animate={fade({ duration: "0.6s" })}>
-           ABOUT
-        </a>
-        <a href='#' 
-           class="header-btn rounded-xl" 
-           style="transition: all 500ms ease"
-           transition:animate={fade({ duration: "0.8s" })}>
-           CONTACT
-        </a>
+<header class="flex text-white-1 font-sarabun justify-center items-center h-20 absolute w-full z-100">
+    <nav class="flex gap-x-10 px-10 font-semibold tracking-wide text-lg m-auto justify-center items-center">
+        <a href="/about">About</a>
+        <a href="#">Projects</a>
+        <a href="#">Profile</a>
     </nav>
 </header>
-
-<style>
-    .header-btn:hover {
-        background: linear-gradient(90deg, rgba(0, 0, 255, 1), rgba(51, 51, 255, 1), rgba(102, 102, 255, 1), rgba(153, 153, 255, 1), rgba(204, 204, 255, 1), rgba(153, 153, 255, 1), rgba(102, 102, 255, 1), rgba(51, 51, 255, 1), rgba(0, 0, 255, 1));
-        background-size: 200% 100%;
-        backdrop-filter: blur(5px);
-        -webkit-text-fill-color: transparent;
-        -webkit-background-clip: text;
-        padding: 10px;
-        scale: 1.1;
-
-        animation: header-animation 2s infinite ease;
-    }
-
-    @keyframes header-animation {
-        0% {
-            background-position: 0% 50%;
-        }
-        100% {
-            background-position: 200% 50%;
-    }
-}
-</style>
-
-<script is:inline>
-    window.addEventListener('DOMContentLoaded', () =>{
-        document.addEventListener('astro:page-load', () => {
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    
-                    document.querySelector(this.getAttribute('href')).scrollIntoView({
-                            behavior: 'smooth'
-                        });
-                    });
-            });
-        });
-    });
-</script>

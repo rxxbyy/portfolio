@@ -1,15 +1,77 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
----
 
-<BaseLayout>
-    <Header />
-    <main class="min-h-screen bg-black text-white flex items-center justify-center">
-        <div class="text-center">
-            <h1 class="text-4xl font-bold mb-4">About</h1>
-            <p class="text-xl">This is the about page.</p>
-            <a href="/" class="text-blue-400 hover:text-blue-300 mt-4 inline-block">← Back to Home</a>
+const anim = {
+    old: {
+        name: "slide",
+        duration: "0.5s",
+        easing: "ease-in-out",
+        direction: "right",
+    },
+    new: {
+        name: "slide",
+        duration: "0.5s",
+        easing: "ease-in-out",
+        direction: "left",
+    },
+};
+
+const customTransition = {
+    forwards: anim,
+    backwards: anim,
+}
+
+const animLeft = {
+    old: {
+        name: "slideToLeft",
+        duration: "0.5s",
+        easing: "ease-in-out",
+    },
+    new: {
+        name: "slideToLeft",
+        duration: "0.5s",
+        easing: "ease-in-out",
+        direction: "left",
+    },
+};
+
+const slideLeft = {
+    forwards: animLeft,
+    backwards: animLeft,
+};
+
+---
+<BaseLayout title="About">
+    <section transition:name="Hero" class="mx-auto w-[1280px] h-screen flex justify-evenly items-center px-10">
+        <div class="flex flex-col text-white-1 w-1/2" transition:animate={slideLeft}>
+            <strong class="flex flex-col text-6xl font-rubik-one border-b-2 border-white-1/10">
+                About Me
+            </strong>
+            <p class="mt-5 text-xl">
+                Manuel Rubio is a Computer Scientist from Ensenada, BC, Mexico that has a strong interest on algorithm
+                analysis, low-level programming and software engineering.
+            </p>
+            <p class="mt-5 text-xl">
+                He is also a GNU/Linux and math enthusiast who is driven by the desire of create big impact solutions
+                that actually matter in the current industry.
+            </p>
         </div>
-    </main>
+
+        <div class="w-75 h-75 text-left rounded-full bg-black-1 me-shadow overflow-hidden" transition:animate={customTransition}>
+            <img id="me" src="/me.png" class="w-full" />
+        </div>
+
+    </section>
+
 </BaseLayout>
+
+<script>
+    
+</script>
+
+<style is:inline>
+    .me-shadow {
+        box-shadow: 0px 0px 10em rgba(236, 204, 181, 0.25);
+    }
+</style>

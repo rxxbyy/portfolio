@@ -17,7 +17,7 @@ const rendered = await Promise.all(collection.map((entry) => render(entry)));
         <div id="exp-progress" class="self-stretch w-[8px] rounded-3xl bg-white/80">
             <div id="exp-effect" class="top-0 left-0 w-full rounded-3xl z-50 relative exp-gradient exp-anim"></div>
         </div>
-        
+
         <div class="w-11/12 flex flex-col gap-y-5">
             {rendered.map((entry) => {
                 const Component = entry.Content;

@@ -43,22 +43,22 @@ const slideLeft = {
 
 ---
 <BaseLayout title="About">
-    <section transition:name="Hero" class="mx-auto w-[1280px] h-screen flex justify-evenly items-center px-10">
-        <div class="flex flex-col text-white-1 w-1/2" transition:animate={slideLeft}>
-            <strong class="flex flex-col text-6xl font-rubik-one border-b-2 border-white-1/10">
+    <section transition:name="Hero" class="md:mx-auto md:w-[1280px] h-screen flex flex-col md:flex-row justify-evenly items-center px-10">
+        <div class="flex flex-col text-white-1 mt-20 w-full md:w-1/2" transition:animate={slideLeft}>
+            <strong class="flex flex-col text-4xl md:text-6xl font-rubik-one border-b-2 border-white-1/10">
                 About Me
             </strong>
-            <p class="mt-5 text-xl">
+            <p class="mt-5 text-md md:text-xl w-11/12 md:w-full">
                 Manuel Rubio is a Computer Scientist from Ensenada, BC, Mexico that has a strong interest on algorithm
                 analysis, low-level programming and software engineering.
             </p>
-            <p class="mt-5 text-xl">
+            <p class="mt-5 text-md md:text-xl w-11/12 md:w-full">
                 He is also a GNU/Linux and math enthusiast who is driven by the desire of create big impact solutions
                 that actually matter in the current industry.
             </p>
         </div>
 
-        <div class="w-75 h-75 text-left rounded-full bg-black-1 me-shadow overflow-hidden" transition:animate={customTransition}>
+        <div class="w-45 h-45 md:w-75 md:h-75 text-left rounded-full bg-black-1 me-shadow overflow-hidden" transition:animate={customTransition}>
             <img id="me" src="/me.png" class="w-full" />
         </div>
 

@@ -45,22 +45,21 @@ const slideLeft = {
 
 ---
 <BaseLayout title="Home">
-    <main class="bg-black-1 w-full h-screen overflow-clip relative">
-        <Header id="main-header" />
+    <main class="bg-black-1 w-full h-screen md:overflow-clip relative">
         
-        <section id="Hero" transition:name="Hero" class="mx-auto w-[1280px] h-screen flex justify-evenly items-center px-10">
-            <div class="w-75 h-75 text-left rounded-full bg-black-1 me-shadow overflow-hidden" >
+        <section id="Hero" transition:name="Hero" class="mx-auto w-full md:w-[1280px] h-screen flex flex-col md:flex-row justify-evenly items-center px-10">
+            <div class="w-45 h-45 md:w-75 md:h-75 text-left rounded-full bg-black-1 me-shadow overflow-hidden" >
                 <img id="me" src="/me.png" class="w-full" />
             </div>
 
             <div class="flex flex-col text-white-1 me-text">
-                <strong class="flex flex-col text-6xl font-rubik-one me-title">
+                <strong class="flex flex-col text-4xl md:text-6xl font-rubik-one me-title">
                 I'm Manuel Rubio
-                <small class="text-2xl me-subtitle">
+                <small class="text-xl md:text-2xl me-subtitle">
                     An alleged <span class="text-yellow-1">Software Engineer</span>
                 </small>
                 </strong>
-                <p class="mt-5 text-lg me-desc">
+                <p class="mt-5 text-md md:text-lg me-desc">
                 Maybe the real Fibonacci Heap is the friends we make along the way...
                 </p>
             </div>
@@ -79,13 +78,6 @@ const slideLeft = {
 </script>
 
 <style is:inline>
-    #main-header {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        z-index: 10000;
-    }
     
     .me-shadow {
         box-shadow: 0px 0px 10em rgba(236, 204, 181, 0.25);
